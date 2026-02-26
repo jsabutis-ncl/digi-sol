@@ -24,8 +24,8 @@ const updates = [
     description:
       "Receive your pool payout instantly when it's your turn. No more waiting for manual transfers — funds are distributed automatically at the end of each round.",
     icon: Zap,
-    color: "text-purple-400",
-    bg: "bg-purple-400/10",
+    color: "text-aa-purple",
+    bg: "bg-aa-purple/10",
     tag: "New Feature",
   },
   {
@@ -34,8 +34,8 @@ const updates = [
     description:
       "Negotiate with other members to swap your payout position. Perfect for when you need funds earlier or want to accommodate another member's needs.",
     icon: ArrowRightLeft,
-    color: "text-amber-400",
-    bg: "bg-amber-400/10",
+    color: "text-aa-amber",
+    bg: "bg-aa-amber/10",
     tag: "Enhancement",
   },
   {
@@ -44,8 +44,8 @@ const updates = [
     description:
       "Get detailed insights into your pool performance with charts, contribution history, and trust score breakdowns.",
     icon: BarChart3,
-    color: "text-blue-400",
-    bg: "bg-blue-400/10",
+    color: "text-aa-blue",
+    bg: "bg-aa-blue/10",
     tag: "Enhancement",
   },
 ];

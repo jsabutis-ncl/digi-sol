@@ -205,7 +205,7 @@ export default function Header() {
                       setProfileOpen(false);
                       showToast("Signed out (demo)", "info");
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-surface-hover transition"
+                    className="w-full text-left px-4 py-2 text-sm text-aa-red hover:bg-surface-hover transition"
                   >
                     Sign Out
                   </button>

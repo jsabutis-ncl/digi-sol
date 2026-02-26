@@ -96,7 +96,7 @@ export default function PayoutCountdown({
             <Timer className="w-4 h-4 text-accent" />
             Next Payout
           </h3>
-          <div className="flex items-center gap-1.5 text-xs text-amber-400">
+          <div className="flex items-center gap-1.5 text-xs text-aa-amber">
             <Sparkles className="w-3.5 h-3.5" />
             <span className="font-medium">Alice M.</span>
           </div>

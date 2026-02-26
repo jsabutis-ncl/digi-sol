@@ -24,8 +24,8 @@ const icons = {
 
 const colors = {
   success: "text-accent border-accent/30 bg-accent/10",
-  error: "text-red-400 border-red-400/30 bg-red-400/10",
-  info: "text-blue-400 border-blue-400/30 bg-blue-400/10",
+  error: "text-aa-red border-aa-red/30 bg-aa-red/10",
+  info: "text-aa-blue border-aa-blue/30 bg-aa-blue/10",
 };
 
 export default function ToastContainer() {

@@ -43,7 +43,7 @@ export default function Home() {
             {/* Demo trigger */}
             <button
               onClick={() => setCeremonyOpen(true)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-accent/90 to-amber-400/90 text-background text-sm font-semibold hover:from-accent hover:to-amber-400 transition-all shadow-lg shadow-accent/10"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-accent/90 to-aa-amber/90 text-background text-sm font-semibold hover:from-accent hover:to-aa-amber transition-all shadow-lg shadow-accent/10"
             >
               <PartyPopper className="w-4 h-4" />
               Simulate Payout Ceremony

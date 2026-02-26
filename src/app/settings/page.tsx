@@ -250,7 +250,7 @@ export default function SettingsPage() {
                         setBankLinked(false);
                         showToast("Bank account disconnected", "info");
                       }}
-                      className="px-4 py-2 rounded-lg border border-red-400/30 text-red-400 text-xs font-medium hover:bg-red-400/10 transition"
+                      className="px-4 py-2 rounded-lg border border-aa-red/30 text-aa-red text-xs font-medium hover:bg-aa-red/10 transition"
                     >
                       Disconnect
                     </button>

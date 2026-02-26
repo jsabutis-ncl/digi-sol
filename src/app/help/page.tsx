@@ -65,7 +65,7 @@ export default function HelpPage() {
             }
             className="bg-surface rounded-xl border border-border p-5 text-left hover:border-accent/30 transition group"
           >
-            <MessageCircle className="w-6 h-6 text-blue-400 mb-3" />
+            <MessageCircle className="w-6 h-6 text-aa-blue mb-3" />
             <h3 className="text-sm font-semibold group-hover:text-accent transition">
               Live Chat
             </h3>
@@ -80,7 +80,7 @@ export default function HelpPage() {
             }}
             className="bg-surface rounded-xl border border-border p-5 text-left hover:border-accent/30 transition group"
           >
-            <Mail className="w-6 h-6 text-purple-400 mb-3" />
+            <Mail className="w-6 h-6 text-aa-purple mb-3" />
             <h3 className="text-sm font-semibold group-hover:text-accent transition">
               Email Support
             </h3>

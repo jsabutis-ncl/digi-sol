@@ -42,8 +42,8 @@ const typeIcons = {
 
 const typeColors = {
   contribution: "text-accent",
-  payout: "text-blue-400",
-  withdrawal: "text-amber-400",
+  payout: "text-aa-blue",
+  withdrawal: "text-aa-amber",
 };
 
 const statusIcons = {
@@ -54,8 +54,8 @@ const statusIcons = {
 
 const statusColors = {
   completed: "text-accent",
-  pending: "text-amber-400",
-  failed: "text-red-400",
+  pending: "text-aa-amber",
+  failed: "text-aa-red",
 };
 
 type FilterType = "all" | "contribution" | "payout" | "withdrawal";
@@ -135,7 +135,7 @@ export default function TransactionsPage() {
                           tx.type === "payout"
                             ? "text-accent"
                             : tx.type === "withdrawal"
-                            ? "text-amber-400"
+                            ? "text-aa-amber"
                             : ""
                         }`}
                       >

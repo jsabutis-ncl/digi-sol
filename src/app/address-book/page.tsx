@@ -128,7 +128,7 @@ export default function AddressBookPage() {
                     </button>
                     <button
                       onClick={() => handleDelete(c.id, c.name)}
-                      className="p-2 rounded-lg hover:bg-red-400/10 text-muted hover:text-red-400 transition"
+                      className="p-2 rounded-lg hover:bg-aa-red/10 text-muted hover:text-aa-red transition"
                       title="Delete"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

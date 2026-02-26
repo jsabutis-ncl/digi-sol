@@ -12,9 +12,9 @@ import {
 
 const earningsSummary = [
   { label: "Total Earned", value: "$5,800", icon: DollarSign, color: "text-accent", bg: "bg-accent/10" },
-  { label: "Total Contributed", value: "$3,250", icon: ArrowUpRight, color: "text-blue-400", bg: "bg-blue-400/10" },
-  { label: "Net Gain", value: "$2,550", icon: TrendingUp, color: "text-amber-400", bg: "bg-amber-400/10" },
-  { label: "Active Pools", value: "3", icon: PiggyBank, color: "text-purple-400", bg: "bg-purple-400/10" },
+  { label: "Total Contributed", value: "$3,250", icon: ArrowUpRight, color: "text-aa-blue", bg: "bg-aa-blue/10" },
+  { label: "Net Gain", value: "$2,550", icon: TrendingUp, color: "text-aa-amber", bg: "bg-aa-amber/10" },
+  { label: "Active Pools", value: "3", icon: PiggyBank, color: "text-aa-purple", bg: "bg-aa-purple/10" },
 ];
 
 const payoutHistory = [
@@ -98,7 +98,7 @@ export default function EarningsPage() {
                   className="flex items-center justify-between px-5 py-4 hover:bg-surface-hover transition"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-highlight flex items-center justify-center text-blue-400">
+                    <div className="w-9 h-9 rounded-full bg-highlight flex items-center justify-center text-aa-blue">
                       <ArrowDownLeft className="w-4 h-4" />
                     </div>
                     <div>

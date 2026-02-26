@@ -37,8 +37,8 @@ export default function NewFeatures() {
 
       <div className="bg-surface rounded-xl border border-border p-4">
         <div className="flex items-start gap-3">
-          <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
-            <Zap className="w-6 h-6 text-purple-400" />
+          <div className="w-12 h-12 rounded-xl bg-aa-purple/10 border border-aa-purple/20 flex items-center justify-center shrink-0">
+            <Zap className="w-6 h-6 text-aa-purple" />
           </div>
           <div className="flex-1">
             <h4 className="text-sm font-semibold mb-1">Instant Payouts</h4>

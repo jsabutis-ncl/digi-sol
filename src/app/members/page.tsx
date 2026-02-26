@@ -36,7 +36,7 @@ const allMembers: Member[] = [
 const roleColors = {
   organizer: "bg-accent/20 text-accent",
   member: "bg-highlight text-secondary",
-  guarantor: "bg-purple-400/20 text-purple-400",
+  guarantor: "bg-aa-purple/20 text-aa-purple",
 };
 
 export default function MembersPage() {
@@ -80,7 +80,7 @@ export default function MembersPage() {
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
                       m.status === "defaulted"
-                        ? "bg-red-400/20 text-red-400"
+                        ? "bg-aa-red/20 text-aa-red"
                         : "bg-highlight text-secondary"
                     }`}
                   >
@@ -95,7 +95,7 @@ export default function MembersPage() {
                         {m.role}
                       </span>
                       {m.status === "defaulted" && (
-                        <span className="flex items-center gap-0.5 text-[10px] text-red-400">
+                        <span className="flex items-center gap-0.5 text-[10px] text-aa-red">
                           <AlertTriangle className="w-3 h-3" /> Defaulted
                         </span>
                       )}
@@ -114,8 +114,8 @@ export default function MembersPage() {
                           m.trustScore >= 90
                             ? "text-accent"
                             : m.trustScore >= 70
-                            ? "text-amber-400"
-                            : "text-red-400"
+                            ? "text-aa-amber"
+                            : "text-aa-red"
                         }`}
                       />
                       <span className="font-semibold">{m.trustScore}%</span>

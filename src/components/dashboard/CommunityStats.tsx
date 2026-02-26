@@ -14,22 +14,22 @@ const stats = [
     label: "Total Members",
     value: "15",
     icon: Users,
-    color: "text-blue-400",
-    bg: "bg-blue-400/10",
+    color: "text-aa-blue",
+    bg: "bg-aa-blue/10",
   },
   {
     label: "Total Saved",
     value: "$12,500",
     icon: TrendingUp,
-    color: "text-amber-400",
-    bg: "bg-amber-400/10",
+    color: "text-aa-amber",
+    bg: "bg-aa-amber/10",
   },
   {
     label: "Trust Score",
     value: "98%",
     icon: ShieldCheck,
-    color: "text-purple-400",
-    bg: "bg-purple-400/10",
+    color: "text-aa-purple",
+    bg: "bg-aa-purple/10",
   },
 ];
 
