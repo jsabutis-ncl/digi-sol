@@ -4,7 +4,7 @@ import {
   Bell,
   ChevronDown,
   Copy,
-  Shield,
+  Sun,
   Wallet,
   X,
   Check,
@@ -12,16 +12,18 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 import { showToast } from "@/components/shared/Toast";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function Header() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const { locale, toggleLocale, t } = useTranslation();
 
   const copyAddress = () => {
     navigator.clipboard.writeText("0xA23189af97B0897BEEF397D");
     setCopied(true);
-    showToast("Address copied to clipboard", "success");
+    showToast(t("addressCopied"), "success");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -49,13 +51,22 @@ export default function Header() {
   return (
     <header className="h-[52px] bg-surface border-b border-border flex items-center justify-between px-4 shrink-0 relative z-40">
       <Link href="/" className="flex items-center gap-1.5">
-        <Shield className="w-6 h-6 text-accent" />
-        <span className="text-lg font-bold tracking-tight">
-          Digi<span className="text-accent">Sol</span>
+        <Sun className="w-6 h-6 text-accent" />
+        <span className="text-lg font-bold tracking-tight font-[family-name:var(--font-ibm-plex-mono)]">
+          <span className="text-accent">Nclusion</span> Digi<span className="text-accent">Sol</span>
         </span>
       </Link>
 
       <div className="flex items-center gap-3">
+        <button
+          onClick={toggleLocale}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-highlight hover:bg-surface-hover transition text-sm"
+          title={locale === "en" ? "Tradwir an Kreole" : "Translate to English"}
+        >
+          <span className="text-base leading-none">{locale === "en" ? "🇭🇹" : "🇬🇧"}</span>
+          <span className="text-xs text-secondary font-medium">{t("language")}</span>
+        </button>
+
         <Link
           href="/earnings"
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-highlight hover:bg-surface-hover transition text-sm"
@@ -88,7 +99,7 @@ export default function Header() {
               />
               <div className="absolute right-0 top-full mt-2 w-80 bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-                  <span className="text-sm font-semibold">Notifications</span>
+                  <span className="text-sm font-semibold">{t("notifications")}</span>
                   <button
                     onClick={() => setNotifOpen(false)}
                     className="p-1 rounded hover:bg-highlight text-muted"
@@ -126,7 +137,7 @@ export default function Header() {
                     onClick={() => setNotifOpen(false)}
                     className="text-xs text-accent hover:underline"
                   >
-                    View all activity
+                    {t("viewAllActivity")}
                   </Link>
                 </div>
               </div>
@@ -150,10 +161,18 @@ export default function Header() {
             <div className="text-left">
               <div className="text-xs text-secondary flex items-center gap-1">
                 0xA23...397D
-                <button
+                <span
+                  role="button"
+                  tabIndex={0}
                   onClick={(e) => {
                     e.stopPropagation();
                     copyAddress();
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.stopPropagation();
+                      copyAddress();
+                    }
                   }}
                   className="text-muted cursor-pointer hover:text-secondary"
                 >
@@ -162,7 +181,7 @@ export default function Header() {
                   ) : (
                     <Copy className="w-3 h-3" />
                   )}
-                </button>
+                </span>
               </div>
             </div>
             <ChevronDown
@@ -191,23 +210,23 @@ export default function Header() {
                     onClick={() => setProfileOpen(false)}
                     className="block px-4 py-2 text-sm text-secondary hover:bg-surface-hover hover:text-foreground transition"
                   >
-                    Settings
+                    {t("settings")}
                   </Link>
                   <Link
                     href="/earnings"
                     onClick={() => setProfileOpen(false)}
                     className="block px-4 py-2 text-sm text-secondary hover:bg-surface-hover hover:text-foreground transition"
                   >
-                    My Earnings
+                    {t("myEarnings")}
                   </Link>
                   <button
                     onClick={() => {
                       setProfileOpen(false);
-                      showToast("Signed out (demo)", "info");
+                      showToast(t("signedOut"), "info");
                     }}
                     className="w-full text-left px-4 py-2 text-sm text-aa-red hover:bg-surface-hover transition"
                   >
-                    Sign Out
+                    {t("signOut")}
                   </button>
                 </div>
               </div>

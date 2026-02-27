@@ -1,6 +1,7 @@
 "use client";
 
 import AppShell from "@/components/layout/AppShell";
+import { useTranslation } from "@/i18n/LanguageContext";
 import {
   TrendingUp,
   ArrowUpRight,
@@ -9,13 +10,6 @@ import {
   DollarSign,
   Calendar,
 } from "lucide-react";
-
-const earningsSummary = [
-  { label: "Total Earned", value: "$5,800", icon: DollarSign, color: "text-accent", bg: "bg-accent/10" },
-  { label: "Total Contributed", value: "$3,250", icon: ArrowUpRight, color: "text-aa-blue", bg: "bg-aa-blue/10" },
-  { label: "Net Gain", value: "$2,550", icon: TrendingUp, color: "text-aa-amber", bg: "bg-aa-amber/10" },
-  { label: "Active Pools", value: "3", icon: PiggyBank, color: "text-aa-purple", bg: "bg-aa-purple/10" },
-];
 
 const payoutHistory = [
   { id: "1", pool: "Community Savings", amount: 2500, date: "Feb 15, 2026", round: 1 },
@@ -28,12 +22,19 @@ const upcomingPayouts = [
 ];
 
 export default function EarningsPage() {
+  const { t } = useTranslation();
+  const earningsSummary = [
+    { label: t("totalEarned"), value: "$5,800", icon: DollarSign, color: "text-accent", bg: "bg-accent/10" },
+    { label: t("totalContributed"), value: "$3,250", icon: ArrowUpRight, color: "text-aa-blue", bg: "bg-aa-blue/10" },
+    { label: t("netGain"), value: "$2,550", icon: TrendingUp, color: "text-aa-amber", bg: "bg-aa-amber/10" },
+    { label: t("activePools"), value: "3", icon: PiggyBank, color: "text-aa-purple", bg: "bg-aa-purple/10" },
+  ];
   return (
     <AppShell>
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-1">Earnings</h1>
+        <h1 className="text-2xl font-bold mb-1">{t("earningsTitle")}</h1>
         <p className="text-sm text-secondary mb-6">
-          Track your savings performance across all pools
+          {t("trackSavings")}
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
@@ -57,7 +58,7 @@ export default function EarningsPage() {
           <div className="mb-8">
             <h2 className="text-base font-semibold mb-3 flex items-center gap-2">
               <Calendar className="w-4 h-4 text-accent" />
-              Upcoming Payouts
+              {t("upcomingPayouts")}
             </h2>
             <div className="space-y-2">
               {upcomingPayouts.map((p) => (
@@ -72,7 +73,7 @@ export default function EarningsPage() {
                     <div>
                       <div className="text-sm font-medium">{p.pool}</div>
                       <div className="text-xs text-muted">
-                        Round {p.round} &middot; Est. {p.estimatedDate}
+                        {t("round")} {p.round} &middot; {t("est")} {p.estimatedDate}
                       </div>
                     </div>
                   </div>
@@ -88,7 +89,7 @@ export default function EarningsPage() {
         <div>
           <h2 className="text-base font-semibold mb-3 flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-secondary" />
-            Payout History
+            {t("payoutHistory")}
           </h2>
           <div className="bg-surface rounded-xl border border-border overflow-hidden">
             <div className="divide-y divide-border">
@@ -104,7 +105,7 @@ export default function EarningsPage() {
                     <div>
                       <div className="text-sm font-medium">{p.pool}</div>
                       <div className="text-xs text-muted">
-                        Round {p.round} &middot; {p.date}
+                        {t("round")} {p.round} &middot; {p.date}
                       </div>
                     </div>
                   </div>

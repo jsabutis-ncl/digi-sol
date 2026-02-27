@@ -15,20 +15,23 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "@/i18n/LanguageContext";
+import type { TranslationKey } from "@/i18n/translations";
 
-const mainNav = [
-  { label: "Home", href: "/", icon: Home },
-  { label: "My Pools", href: "/pools", icon: PiggyBank },
-  { label: "Transactions", href: "/transactions", icon: ArrowLeftRight },
-  { label: "Members", href: "/members", icon: Users },
-  { label: "Earnings", href: "/earnings", icon: TrendingUp },
-  { label: "Address Book", href: "/address-book", icon: BookUser },
-  { label: "Apps", href: "/apps", icon: LayoutGrid },
-  { label: "Settings", href: "/settings", icon: Settings },
+const mainNav: { labelKey: TranslationKey; href: string; icon: typeof Home }[] = [
+  { labelKey: "home", href: "/", icon: Home },
+  { labelKey: "myPools", href: "/pools", icon: PiggyBank },
+  { labelKey: "transactions", href: "/transactions", icon: ArrowLeftRight },
+  { labelKey: "members", href: "/members", icon: Users },
+  { labelKey: "earnings", href: "/earnings", icon: TrendingUp },
+  { labelKey: "addressBook", href: "/address-book", icon: BookUser },
+  { labelKey: "apps", href: "/apps", icon: LayoutGrid },
+  { labelKey: "settings", href: "/settings", icon: Settings },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   return (
     <aside className="w-[230px] bg-surface border-r border-border flex flex-col shrink-0 h-full">
@@ -38,16 +41,16 @@ export default function Sidebar() {
           className="block bg-accent/10 border border-accent/20 rounded-lg p-3 mb-3 hover:bg-accent/15 transition"
         >
           <div className="text-[10px] font-semibold text-accent uppercase tracking-wider mb-1">
-            Active Pool
+            {t("activePool")}
           </div>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent text-sm font-bold">
               1/5
             </div>
             <div>
-              <div className="text-sm font-medium">Community Savings</div>
+              <div className="text-sm font-medium">{t("communitySavings")}</div>
               <div className="text-xs text-muted">
-                Round 1 of 5 &middot; $500/mo
+                {t("round")} 1 of 5 &middot; $500/mo
               </div>
             </div>
           </div>
@@ -57,21 +60,21 @@ export default function Sidebar() {
           <Link
             href="/pools"
             className="flex-1 p-1.5 rounded-md bg-highlight hover:bg-surface-hover transition"
-            title="My Pools"
+            title={t("myPools")}
           >
             <LayoutGrid className="w-4 h-4 text-secondary mx-auto" />
           </Link>
           <Link
             href="/transactions"
             className="flex-1 p-1.5 rounded-md bg-highlight hover:bg-surface-hover transition"
-            title="Transactions"
+            title={t("transactions")}
           >
             <ArrowLeftRight className="w-4 h-4 text-secondary mx-auto" />
           </Link>
           <Link
             href="/address-book"
             className="flex-1 p-1.5 rounded-md bg-highlight hover:bg-surface-hover transition"
-            title="Address Book"
+            title={t("addressBook")}
           >
             <BookUser className="w-4 h-4 text-secondary mx-auto" />
           </Link>
@@ -82,7 +85,7 @@ export default function Sidebar() {
           className="w-full py-2 bg-accent text-background font-semibold rounded-lg text-sm hover:bg-accent/90 transition flex items-center justify-center gap-1.5"
         >
           <Plus className="w-4 h-4" />
-          New Pool
+          {t("newPool")}
         </Link>
       </div>
 
@@ -103,7 +106,7 @@ export default function Sidebar() {
                 }`}
             >
               <item.icon className="w-4 h-4" />
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           );
         })}
@@ -115,14 +118,14 @@ export default function Sidebar() {
           className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-secondary hover:bg-surface-hover hover:text-foreground transition"
         >
           <Sparkles className="w-4 h-4" />
-          What&apos;s new
+          {t("whatsNew")}
         </Link>
         <Link
           href="/help"
           className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-secondary hover:bg-surface-hover hover:text-foreground transition"
         >
           <HelpCircle className="w-4 h-4" />
-          Need help?
+          {t("needHelp")}
         </Link>
       </div>
     </aside>

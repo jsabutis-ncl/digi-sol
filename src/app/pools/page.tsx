@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "@/i18n/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 import {
   PiggyBank,
@@ -57,14 +58,15 @@ const statusColors = {
 };
 
 export default function PoolsPage() {
+  const { t } = useTranslation();
   return (
     <AppShell>
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold">My Pools</h1>
+            <h1 className="text-2xl font-bold">{t("poolsTitle")}</h1>
             <p className="text-sm text-secondary mt-1">
-              Manage your savings circles
+              {t("manageSavings")}
             </p>
           </div>
           <div className="flex gap-2">
@@ -73,14 +75,14 @@ export default function PoolsPage() {
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium hover:bg-surface-hover transition"
             >
               <Users className="w-4 h-4" />
-              Join Pool
+              {t("joinPool")}
             </Link>
             <Link
               href="/pools/create"
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition"
             >
               <Plus className="w-4 h-4" />
-              Create Pool
+              {t("createPool")}
             </Link>
           </div>
         </div>
@@ -103,7 +105,7 @@ export default function PoolsPage() {
                     </h3>
                     <div className="flex items-center gap-1.5 text-xs text-muted">
                       <Users className="w-3 h-3" />
-                      {pool.members} members
+                      {pool.members} {t("membersLabel")}
                     </div>
                   </div>
                 </div>
@@ -118,19 +120,19 @@ export default function PoolsPage() {
 
               <div className="space-y-2 mb-3">
                 <div className="flex justify-between text-xs">
-                  <span className="text-muted">Contribution</span>
+                  <span className="text-muted">{t("contribution")}</span>
                   <span className="text-foreground font-medium">
                     ${pool.contribution}/{pool.frequency.toLowerCase()}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-muted">Progress</span>
+                  <span className="text-muted">{t("progress")}</span>
                   <span className="text-foreground font-medium">
-                    Round {pool.currentRound} of {pool.totalRounds}
+                    {t("round")} {pool.currentRound} {t("of")} {pool.totalRounds}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-muted">Pool Value</span>
+                  <span className="text-muted">{t("poolValue")}</span>
                   <span className="text-accent font-semibold">
                     ${pool.totalValue.toLocaleString()}
                   </span>
@@ -151,7 +153,7 @@ export default function PoolsPage() {
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-1 text-muted">
                   <Clock className="w-3 h-3" />
-                  Next: {pool.nextPayout}
+                  {t("next")}: {pool.nextPayout}
                 </div>
                 <ArrowRight className="w-3.5 h-3.5 text-muted group-hover:text-accent transition" />
               </div>

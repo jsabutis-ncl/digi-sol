@@ -1,6 +1,7 @@
 "use client";
 
 import AppShell from "@/components/layout/AppShell";
+import { useTranslation } from "@/i18n/LanguageContext";
 import {
   ArrowUpRight,
   ArrowDownLeft,
@@ -61,6 +62,7 @@ const statusColors = {
 type FilterType = "all" | "contribution" | "payout" | "withdrawal";
 
 export default function TransactionsPage() {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<FilterType>("all");
 
   const filtered =
@@ -73,9 +75,9 @@ export default function TransactionsPage() {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold">Transactions</h1>
+            <h1 className="text-2xl font-bold">{t("transactionsTitle")}</h1>
             <p className="text-sm text-secondary mt-1">
-              All pool activity and transfers
+              {t("allPoolActivity")}
             </p>
           </div>
         </div>
@@ -93,7 +95,7 @@ export default function TransactionsPage() {
                     : "bg-surface text-secondary hover:bg-surface-hover"
                 }`}
               >
-                {f === "all" ? "All" : f + "s"}
+                {f === "all" ? t("all") : f === "contribution" ? t("contributions") : f === "payout" ? t("payouts") : t("withdrawals")}
               </button>
             )
           )}
@@ -118,10 +120,10 @@ export default function TransactionsPage() {
                     <div>
                       <div className="text-sm font-medium">
                         {tx.type === "contribution"
-                          ? `${tx.member} contributed`
+                          ? `${tx.member} ${t("contributedAction")}`
                           : tx.type === "payout"
-                          ? `Payout received`
-                          : `Withdrawal`}
+                          ? t("payoutReceived")
+                          : t("withdrawal")}
                       </div>
                       <div className="text-xs text-muted">
                         {tx.pool} &middot; {tx.date}
@@ -158,7 +160,7 @@ export default function TransactionsPage() {
 
         {filtered.length === 0 && (
           <div className="text-center py-16 text-muted text-sm">
-            No transactions found
+            {t("noTransactions")}
           </div>
         )}
       </div>

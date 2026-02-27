@@ -11,71 +11,84 @@ import {
   MessageSquare,
   ExternalLink,
 } from "lucide-react";
+import { useTranslation } from "@/i18n/LanguageContext";
+import type { TranslationKey } from "@/i18n/translations";
 
-const apps = [
+interface AppItem {
+  nameKey: TranslationKey;
+  descKey: TranslationKey;
+  icon: typeof BarChart3;
+  color: string;
+  bg: string;
+  status: "available" | "coming_soon";
+}
+
+const apps: AppItem[] = [
   {
-    name: "Pool Analytics",
-    description: "Detailed charts and insights for your savings pools",
+    nameKey: "poolAnalytics",
+    descKey: "poolAnalyticsDesc",
     icon: BarChart3,
     color: "text-accent",
     bg: "bg-accent/10",
-    status: "available" as const,
+    status: "available",
   },
   {
-    name: "Contribution Calculator",
-    description: "Plan your savings with our interactive calculator",
+    nameKey: "contribCalculator",
+    descKey: "contribCalculatorDesc",
     icon: Calculator,
     color: "text-aa-blue",
     bg: "bg-aa-blue/10",
-    status: "available" as const,
+    status: "available",
   },
   {
-    name: "Schedule Planner",
-    description: "Visualize payout schedules and set reminders",
+    nameKey: "schedulePlanner",
+    descKey: "schedulePlannerDesc",
     icon: CalendarCheck,
     color: "text-aa-amber",
     bg: "bg-aa-amber/10",
-    status: "available" as const,
+    status: "available",
   },
   {
-    name: "Export Reports",
-    description: "Download CSV/PDF reports of all pool activity",
+    nameKey: "exportReports",
+    descKey: "exportReportsDesc",
     icon: FileText,
     color: "text-aa-purple",
     bg: "bg-aa-purple/10",
-    status: "available" as const,
+    status: "available",
   },
   {
-    name: "Community Chat",
-    description: "In-app messaging with your pool members",
+    nameKey: "communityChat",
+    descKey: "communityChatDesc",
     icon: MessageSquare,
     color: "text-aa-pink",
     bg: "bg-aa-pink/10",
-    status: "coming_soon" as const,
+    status: "coming_soon",
   },
   {
-    name: "DeFi Bridge",
-    description: "Connect to DeFi protocols for yield on idle pool funds",
+    nameKey: "defiBridge",
+    descKey: "defiBridgeDesc",
     icon: Globe,
     color: "text-aa-cyan",
     bg: "bg-aa-cyan/10",
-    status: "coming_soon" as const,
+    status: "coming_soon",
   },
 ];
 
 export default function AppsPage() {
+  const { t } = useTranslation();
+
   return (
     <AppShell>
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-1">Apps</h1>
+        <h1 className="text-2xl font-bold mb-1">{t("appsTitle")}</h1>
         <p className="text-sm text-secondary mb-6">
-          Extend DigiSol with integrations and tools
+          {t("appsDesc")}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {apps.map((app) => (
             <div
-              key={app.name}
+              key={app.nameKey}
               className="bg-surface rounded-xl border border-border p-5 flex flex-col"
             >
               <div className="flex items-start justify-between mb-3">
@@ -86,20 +99,20 @@ export default function AppsPage() {
                 </div>
                 {app.status === "coming_soon" && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-highlight text-muted">
-                    Coming Soon
+                    {t("comingSoon")}
                   </span>
                 )}
               </div>
-              <h3 className="text-sm font-semibold mb-1">{app.name}</h3>
+              <h3 className="text-sm font-semibold mb-1">{t(app.nameKey)}</h3>
               <p className="text-xs text-secondary flex-1 leading-relaxed">
-                {app.description}
+                {t(app.descKey)}
               </p>
               <button
                 onClick={() => {
                   if (app.status === "coming_soon") {
-                    showToast(`${app.name} is coming soon!`, "info");
+                    showToast(`${t(app.nameKey)} ${t("appComingSoon")}`, "info");
                   } else {
-                    showToast(`${app.name} opened (demo)`, "success");
+                    showToast(`${t(app.nameKey)} ${t("appOpened")}`, "success");
                   }
                 }}
                 disabled={app.status === "coming_soon"}
@@ -110,10 +123,10 @@ export default function AppsPage() {
                 }`}
               >
                 {app.status === "coming_soon" ? (
-                  "Notify Me"
+                  t("notifyMe")
                 ) : (
                   <>
-                    Open <ExternalLink className="w-3 h-3" />
+                    {t("open")} <ExternalLink className="w-3 h-3" />
                   </>
                 )}
               </button>

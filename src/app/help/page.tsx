@@ -8,34 +8,26 @@ import {
   MessageCircle,
   Mail,
   ChevronDown,
-  ExternalLink,
 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/i18n/LanguageContext";
+import type { TranslationKey } from "@/i18n/translations";
 
-const faqs = [
-  {
-    q: "What is a ROSCA?",
-    a: "A ROSCA (Rotating Savings and Credit Association) is a group savings scheme where members contribute a fixed amount each period, and one member receives the total pool each round on a rotating basis.",
-  },
-  {
-    q: "How do I create a pool?",
-    a: "Click 'New Pool' in the sidebar or go to My Pools → Create Pool. Set the contribution amount, frequency, and invite members to join.",
-  },
-  {
-    q: "What happens if a member defaults?",
-    a: "If a member misses a contribution, their trust score decreases and they are flagged. If you have the Smart Guarantor System enabled, guarantors can step in to cover the shortfall.",
-  },
-  {
-    q: "How are payouts distributed?",
-    a: "Payouts follow the rotation order set when the pool is created. Each round, all members contribute and the designated member receives the total pool amount.",
-  },
-  {
-    q: "Can I leave a pool early?",
-    a: "You can request to leave a pool, but you must have completed all contributions for rounds where you've already received a payout. The pool organizer must approve your departure.",
-  },
+interface FaqItem {
+  qKey: TranslationKey;
+  aKey: TranslationKey;
+}
+
+const faqs: FaqItem[] = [
+  { qKey: "faqWhat", aKey: "faqWhatAnswer" },
+  { qKey: "faqCreate", aKey: "faqCreateAnswer" },
+  { qKey: "faqDefault", aKey: "faqDefaultAnswer" },
+  { qKey: "faqPayout", aKey: "faqPayoutAnswer" },
+  { qKey: "faqLeave", aKey: "faqLeaveAnswer" },
 ];
 
 export default function HelpPage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
@@ -43,53 +35,53 @@ export default function HelpPage() {
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-2 mb-6">
           <HelpCircle className="w-5 h-5 text-accent" />
-          <h1 className="text-2xl font-bold">Help Center</h1>
+          <h1 className="text-2xl font-bold">{t("helpCenter")}</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <button
-            onClick={() => showToast("Documentation opened (demo)", "info")}
+            onClick={() => showToast(t("docOpened"), "info")}
             className="bg-surface rounded-xl border border-border p-5 text-left hover:border-accent/30 transition group"
           >
             <BookOpen className="w-6 h-6 text-accent mb-3" />
             <h3 className="text-sm font-semibold group-hover:text-accent transition">
-              Documentation
+              {t("documentation")}
             </h3>
             <p className="text-xs text-muted mt-1">
-              Learn how DigiSol works
+              {t("learnHow")}
             </p>
           </button>
           <button
             onClick={() =>
-              showToast("Live chat coming soon!", "info")
+              showToast(t("liveChatSoon"), "info")
             }
             className="bg-surface rounded-xl border border-border p-5 text-left hover:border-accent/30 transition group"
           >
             <MessageCircle className="w-6 h-6 text-aa-blue mb-3" />
             <h3 className="text-sm font-semibold group-hover:text-accent transition">
-              Live Chat
+              {t("liveChat")}
             </h3>
             <p className="text-xs text-muted mt-1">
-              Talk to our support team
+              {t("liveChatDesc")}
             </p>
           </button>
           <button
             onClick={() => {
               navigator.clipboard.writeText("support@digisol.app");
-              showToast("Email copied: support@digisol.app", "success");
+              showToast(t("emailCopied"), "success");
             }}
             className="bg-surface rounded-xl border border-border p-5 text-left hover:border-accent/30 transition group"
           >
             <Mail className="w-6 h-6 text-aa-purple mb-3" />
             <h3 className="text-sm font-semibold group-hover:text-accent transition">
-              Email Support
+              {t("emailSupport")}
             </h3>
             <p className="text-xs text-muted mt-1">support@digisol.app</p>
           </button>
         </div>
 
         <h2 className="text-base font-semibold mb-4">
-          Frequently Asked Questions
+          {t("faq")}
         </h2>
 
         <div className="space-y-2">
@@ -102,7 +94,7 @@ export default function HelpPage() {
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-surface-hover transition"
               >
-                <span className="text-sm font-medium pr-4">{faq.q}</span>
+                <span className="text-sm font-medium pr-4">{t(faq.qKey)}</span>
                 <ChevronDown
                   className={`w-4 h-4 text-muted shrink-0 transition-transform ${
                     openFaq === i ? "rotate-180" : ""
@@ -112,7 +104,7 @@ export default function HelpPage() {
               {openFaq === i && (
                 <div className="px-5 pb-4">
                   <p className="text-xs text-secondary leading-relaxed">
-                    {faq.a}
+                    {t(faq.aKey)}
                   </p>
                 </div>
               )}

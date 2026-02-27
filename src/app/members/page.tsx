@@ -1,14 +1,14 @@
 "use client";
 
+import { useTranslation } from "@/i18n/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 import { showToast } from "@/components/shared/Toast";
 import Modal from "@/components/shared/Modal";
 import {
   UserPlus,
-  ShieldCheck,
   AlertTriangle,
   Star,
-  MoreHorizontal,
+  Trash2,
   Mail,
   Copy,
 } from "lucide-react";
@@ -25,7 +25,7 @@ interface Member {
   status: "active" | "defaulted" | "new";
 }
 
-const allMembers: Member[] = [
+const initialMembers: Member[] = [
   { id: "1", name: "You (Jonathan S.)", initials: "JS", role: "organizer", trustScore: 100, totalContributed: 3250, joinedDate: "Jan 2026", status: "active" },
   { id: "2", name: "Alice M.", initials: "AM", role: "member", trustScore: 98, totalContributed: 2500, joinedDate: "Jan 2026", status: "active" },
   { id: "3", name: "Bob K.", initials: "BK", role: "member", trustScore: 95, totalContributed: 2500, joinedDate: "Jan 2026", status: "active" },
@@ -40,14 +40,24 @@ const roleColors = {
 };
 
 export default function MembersPage() {
+  const { t } = useTranslation();
+  const [members, setMembers] = useState<Member[]>(initialMembers);
   const [inviteOpen, setInviteOpen] = useState(false);
   const [inviteEmail, setInviteEmail] = useState("");
+  const [removeTarget, setRemoveTarget] = useState<Member | null>(null);
 
   const handleInvite = () => {
     if (!inviteEmail.trim()) return;
-    showToast(`Invitation sent to ${inviteEmail}`, "success");
+    showToast(`${t("invitationSent")} ${inviteEmail}`, "success");
     setInviteEmail("");
     setInviteOpen(false);
+  };
+
+  const handleRemove = () => {
+    if (!removeTarget) return;
+    setMembers((prev) => prev.filter((m) => m.id !== removeTarget.id));
+    showToast(`${removeTarget.name} ${t("hasBeenRemoved")}`, "success");
+    setRemoveTarget(null);
   };
 
   return (
@@ -55,9 +65,9 @@ export default function MembersPage() {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold">Members</h1>
+            <h1 className="text-2xl font-bold">{t("membersTitle")}</h1>
             <p className="text-sm text-secondary mt-1">
-              {allMembers.length} members across all pools
+              {members.length} {t("membersCount")}
             </p>
           </div>
           <button
@@ -65,16 +75,16 @@ export default function MembersPage() {
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition"
           >
             <UserPlus className="w-4 h-4" />
-            Invite Member
+            {t("inviteMember")}
           </button>
         </div>
 
         <div className="bg-surface rounded-xl border border-border overflow-hidden">
           <div className="divide-y divide-border">
-            {allMembers.map((m) => (
+            {members.map((m) => (
               <div
                 key={m.id}
-                className="flex items-center justify-between px-5 py-4 hover:bg-surface-hover transition"
+                className="flex items-center justify-between px-5 py-4 hover:bg-surface-hover transition group"
               >
                 <div className="flex items-center gap-3">
                   <div
@@ -92,16 +102,16 @@ export default function MembersPage() {
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${roleColors[m.role]}`}
                       >
-                        {m.role}
+                        {m.role === "organizer" ? t("organizer") : m.role === "member" ? t("member") : t("guarantor")}
                       </span>
                       {m.status === "defaulted" && (
                         <span className="flex items-center gap-0.5 text-[10px] text-aa-red">
-                          <AlertTriangle className="w-3 h-3" /> Defaulted
+                          <AlertTriangle className="w-3 h-3" /> {t("defaulted")}
                         </span>
                       )}
                     </div>
                     <div className="text-xs text-muted mt-0.5">
-                      Joined {m.joinedDate} &middot; Contributed $
+                      {t("joined")} {m.joinedDate} &middot; {t("contributed")} $
                       {m.totalContributed.toLocaleString()}
                     </div>
                   </div>
@@ -120,16 +130,17 @@ export default function MembersPage() {
                       />
                       <span className="font-semibold">{m.trustScore}%</span>
                     </div>
-                    <div className="text-[10px] text-muted">Trust Score</div>
+                    <div className="text-[10px] text-muted">{t("trustScoreLabel")}</div>
                   </div>
-                  <button
-                    onClick={() =>
-                      showToast(`Options for ${m.name}`, "info")
-                    }
-                    className="p-1.5 rounded-lg hover:bg-highlight text-muted hover:text-foreground transition"
-                  >
-                    <MoreHorizontal className="w-4 h-4" />
-                  </button>
+                  {m.role !== "organizer" && (
+                    <button
+                      onClick={() => setRemoveTarget(m)}
+                      className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 bg-aa-red/10 text-aa-red hover:bg-aa-red/20 transition"
+                      title={`Remove ${m.name}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -139,15 +150,15 @@ export default function MembersPage() {
         <Modal
           open={inviteOpen}
           onClose={() => setInviteOpen(false)}
-          title="Invite a Member"
+          title={t("inviteAMember")}
         >
           <div className="space-y-4">
             <p className="text-sm text-secondary">
-              Send an invitation to join your pool.
+              {t("sendInvitation")}
             </p>
             <div>
               <label className="text-xs text-muted mb-1.5 block">
-                Email Address
+                {t("emailAddress")}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
@@ -158,14 +169,14 @@ export default function MembersPage() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleInvite();
                   }}
-                  placeholder="friend@example.com"
+                  placeholder={t("emailPlaceholder")}
                   className="w-full pl-9 pr-4 py-2.5 bg-highlight border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
                 />
               </div>
             </div>
             <div className="bg-highlight rounded-lg p-3 flex items-center justify-between">
               <div>
-                <div className="text-[10px] text-muted mb-0.5">Invite Code</div>
+                <div className="text-[10px] text-muted mb-0.5">{t("inviteCode")}</div>
                 <div className="text-sm font-mono text-foreground">
                   POOL-7X9K
                 </div>
@@ -173,7 +184,7 @@ export default function MembersPage() {
               <button
                 onClick={() => {
                   navigator.clipboard.writeText("POOL-7X9K");
-                  showToast("Invite code copied!", "success");
+                  showToast(t("inviteCodeCopied"), "success");
                 }}
                 className="p-2 rounded-lg hover:bg-surface-hover text-muted hover:text-foreground transition"
               >
@@ -185,14 +196,42 @@ export default function MembersPage() {
                 onClick={() => setInviteOpen(false)}
                 className="flex-1 py-2.5 rounded-lg border border-border text-secondary text-sm font-medium hover:bg-surface-hover transition"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 onClick={handleInvite}
                 disabled={!inviteEmail.trim()}
                 className="flex-1 py-2.5 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40"
               >
-                Send Invite
+                {t("sendInvite")}
+              </button>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal
+          open={!!removeTarget}
+          onClose={() => setRemoveTarget(null)}
+          title={t("removeMember")}
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-secondary">
+              {t("removeConfirm")}{" "}
+              <span className="text-foreground font-medium">{removeTarget?.name}</span>{" "}
+              {t("removeWarning")}
+            </p>
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => setRemoveTarget(null)}
+                className="flex-1 py-2.5 rounded-lg border border-border text-secondary text-sm font-medium hover:bg-surface-hover transition"
+              >
+                {t("cancel")}
+              </button>
+              <button
+                onClick={handleRemove}
+                className="flex-1 py-2.5 rounded-lg bg-aa-red text-white text-sm font-semibold hover:bg-aa-red/90 transition"
+              >
+                {t("remove")}
               </button>
             </div>
           </div>

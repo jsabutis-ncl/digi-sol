@@ -1,6 +1,7 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 interface PoolRound {
   round: number;
@@ -18,6 +19,7 @@ const rounds: PoolRound[] = [
 ];
 
 export default function PoolProgress() {
+  const { t } = useTranslation();
   const currentRound = rounds.findIndex((r) => r.status === "current") + 1;
   const totalRounds = rounds.length;
   const progress = ((currentRound) / totalRounds) * 100;
@@ -26,13 +28,13 @@ export default function PoolProgress() {
     <div>
       <h3 className="text-base font-semibold mb-4 flex items-center gap-2">
         <TrendingUp className="w-4 h-4 text-accent" />
-        Pool Progress
+        {t("poolProgress")}
       </h3>
 
       <div className="bg-surface rounded-xl border border-border p-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-secondary">
-            Round {currentRound} of {totalRounds}
+            {t("round")} {currentRound} {t("of")} {totalRounds}
           </span>
           <span className="text-sm font-semibold text-accent">
             {Math.round(progress)}%
@@ -81,10 +83,10 @@ export default function PoolProgress() {
                       : "text-muted"
                   }
                 >
-                  {r.member}
+                  {r.member === "You" ? t("you") : r.member}
                   {r.status === "current" && (
                     <span className="ml-1.5 text-[10px] bg-accent/20 text-accent px-1.5 py-0.5 rounded font-semibold">
-                      Receiving
+                      {t("receiving")}
                     </span>
                   )}
                 </span>

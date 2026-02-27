@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "@/i18n/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 import { showToast } from "@/components/shared/Toast";
 import {
@@ -44,6 +45,7 @@ const openPools = [
 ];
 
 export default function JoinPoolPage() {
+  const { t } = useTranslation();
   const [inviteCode, setInviteCode] = useState("");
   const [search, setSearch] = useState("");
   const [joining, setJoining] = useState<string | null>(null);
@@ -58,7 +60,7 @@ export default function JoinPoolPage() {
     setTimeout(() => {
       setJoining(null);
       setInviteCode("");
-      showToast("Successfully joined the pool!", "success");
+      showToast(t("joinedSuccess"), "success");
     }, 1500);
   };
 
@@ -66,7 +68,7 @@ export default function JoinPoolPage() {
     setJoining(poolId);
     setTimeout(() => {
       setJoining(null);
-      showToast(`Joined "${poolName}" successfully!`, "success");
+      showToast(`${t("joined")} "${poolName}" ${t("joinedPool")}`, "success");
     }, 1500);
   };
 
@@ -78,18 +80,18 @@ export default function JoinPoolPage() {
           className="inline-flex items-center gap-1.5 text-sm text-secondary hover:text-foreground transition mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to pools
+          {t("backToPools")}
         </Link>
 
-        <h1 className="text-2xl font-bold mb-1">Join a Pool</h1>
+        <h1 className="text-2xl font-bold mb-1">{t("joinAPoolTitle")}</h1>
         <p className="text-sm text-secondary mb-6">
-          Browse open pools or use an invite code.
+          {t("joinPoolDesc")}
         </p>
 
         <div className="bg-surface rounded-xl border border-border p-5 mb-6">
           <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
             <KeyRound className="w-4 h-4 text-secondary" />
-            Have an invite code?
+            {t("haveInviteCode")}
           </h3>
           <div className="flex gap-2">
             <input
@@ -99,7 +101,7 @@ export default function JoinPoolPage() {
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleJoinByCode();
               }}
-              placeholder="Enter invite code (e.g. POOL-XXXX)"
+              placeholder={t("enterInviteCode")}
               className="flex-1 px-4 py-2.5 bg-highlight border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
             />
             <button
@@ -107,7 +109,7 @@ export default function JoinPoolPage() {
               disabled={!inviteCode.trim() || joining === "code"}
               className="px-5 py-2.5 bg-accent text-background rounded-lg text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40"
             >
-              {joining === "code" ? "Joining..." : "Join"}
+              {joining === "code" ? t("joining") : t("join")}
             </button>
           </div>
         </div>
@@ -119,7 +121,7 @@ export default function JoinPoolPage() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search open pools..."
+              placeholder={t("searchPools")}
               className="w-full pl-9 pr-4 py-2.5 bg-surface border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
             />
           </div>
@@ -138,7 +140,7 @@ export default function JoinPoolPage() {
                 <div>
                   <h3 className="text-sm font-semibold">{pool.name}</h3>
                   <div className="flex items-center gap-3 text-xs text-muted mt-0.5">
-                    <span>by {pool.organizer}</span>
+                    <span>{t("by")} {pool.organizer}</span>
                     <span className="flex items-center gap-1">
                       <Users className="w-3 h-3" />
                       {pool.members}/{pool.maxMembers}
@@ -155,10 +157,10 @@ export default function JoinPoolPage() {
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-accent text-accent text-sm font-medium hover:bg-accent/10 transition disabled:opacity-40"
               >
                 {joining === pool.id ? (
-                  "Joining..."
+                  t("joining")
                 ) : (
                   <>
-                    Join <ArrowRight className="w-3.5 h-3.5" />
+                    {t("join")} <ArrowRight className="w-3.5 h-3.5" />
                   </>
                 )}
               </button>
@@ -167,7 +169,7 @@ export default function JoinPoolPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-12 text-muted text-sm">
-              No pools found matching &ldquo;{search}&rdquo;
+              {t("noPoolsFound")} &ldquo;{search}&rdquo;
             </div>
           )}
         </div>

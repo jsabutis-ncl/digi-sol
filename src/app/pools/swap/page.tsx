@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "@/i18n/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 import { showToast } from "@/components/shared/Toast";
 import Modal from "@/components/shared/Modal";
@@ -15,6 +16,7 @@ const members = [
 ];
 
 export default function SwapTurnPage() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ export default function SwapTurnPage() {
       setConfirmOpen(false);
       setSelected(null);
       showToast(
-        `Swap request sent to ${selectedMember?.name}!`,
+        `${t("swapRequestSent")} ${selectedMember?.name}!`,
         "success"
       );
     }, 1200);
@@ -43,13 +45,12 @@ export default function SwapTurnPage() {
           className="inline-flex items-center gap-1.5 text-sm text-secondary hover:text-foreground transition mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to dashboard
+          {t("backToDashboard")}
         </Link>
 
-        <h1 className="text-2xl font-bold mb-1">Swap Turn</h1>
+        <h1 className="text-2xl font-bold mb-1">{t("swapTurnTitle")}</h1>
         <p className="text-sm text-secondary mb-6">
-          Request to swap your payout position (Round {myRound}) with another
-          member.
+          {t("swapDesc")} ({t("round")} {myRound}) {t("with")}
         </p>
 
         <div className="bg-surface rounded-xl border border-border p-4 mb-6">
@@ -58,21 +59,21 @@ export default function SwapTurnPage() {
               <ArrowRightLeft className="w-5 h-5 text-accent" />
             </div>
             <div>
-              <div className="text-sm font-semibold">Your Position</div>
+              <div className="text-sm font-semibold">{t("yourPosition")}</div>
               <div className="text-xs text-muted">
-                Round {myRound} &mdash; Community Savings
+                {t("round")} {myRound} &mdash; {t("communitySavings")}
               </div>
             </div>
             <div className="ml-auto">
               <span className="px-2.5 py-1 bg-accent/20 text-accent text-xs font-bold rounded-full">
-                Completed
+                {t("completed")}
               </span>
             </div>
           </div>
         </div>
 
         <h3 className="text-sm font-semibold text-secondary mb-3">
-          Select a member to swap with
+          {t("selectMember")}
         </h3>
 
         <div className="space-y-2">
@@ -98,11 +99,11 @@ export default function SwapTurnPage() {
                 </div>
                 <div>
                   <div className="text-sm font-medium">{m.name}</div>
-                  <div className="text-xs text-muted">Round {m.round}</div>
+                  <div className="text-xs text-muted">{t("round")} {m.round}</div>
                 </div>
               </div>
               <div className="text-xs text-muted">
-                Round {m.round}
+                {t("round")} {m.round}
               </div>
             </button>
           ))}
@@ -115,47 +116,46 @@ export default function SwapTurnPage() {
             className="w-full py-3 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
-            Send Swap Request
+            {t("sendSwapRequest")}
           </button>
         </div>
 
         <Modal
           open={confirmOpen}
           onClose={() => setConfirmOpen(false)}
-          title="Confirm Swap Request"
+          title={t("confirmSwapRequest")}
         >
           <div className="space-y-4">
             <p className="text-sm text-secondary">
-              You are requesting to swap your position{" "}
+              {t("swapConfirmText")}{" "}
               <span className="text-foreground font-medium">
-                (Round {myRound})
+                ({t("round")} {myRound})
               </span>{" "}
-              with{" "}
+              {t("swapConfirmWith")}{" "}
               <span className="text-foreground font-medium">
                 {selectedMember?.name}
               </span>{" "}
               <span className="text-foreground font-medium">
-                (Round {selectedMember?.round})
+                ({t("round")} {selectedMember?.round})
               </span>
               .
             </p>
             <p className="text-xs text-muted">
-              The other member will need to accept the swap before it takes
-              effect.
+              {t("swapNeedAccept")}
             </p>
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setConfirmOpen(false)}
                 className="flex-1 py-2.5 rounded-lg border border-border text-secondary text-sm font-medium hover:bg-surface-hover transition"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 onClick={handleSwapRequest}
                 disabled={loading}
                 className="flex-1 py-2.5 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40"
               >
-                {loading ? "Sending..." : "Confirm"}
+                {loading ? t("sending") : t("confirm")}
               </button>
             </div>
           </div>

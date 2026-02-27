@@ -4,6 +4,7 @@ import { Clock, ArrowUpRight, Users, Check } from "lucide-react";
 import { useState } from "react";
 import { showToast } from "@/components/shared/Toast";
 import Link from "next/link";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 interface Contribution {
   id: string;
@@ -50,13 +51,20 @@ const statusColors = {
 export default function PendingContributions() {
   const [contributions, setContributions] =
     useState<Contribution[]>(initialContributions);
+  const { t } = useTranslation();
+
+  const statusLabels = {
+    pending: t("pending"),
+    overdue: t("overdue"),
+    paid: t("paid"),
+  };
 
   const markPaid = (id: string) => {
     setContributions((prev) =>
       prev.map((c) => (c.id === id ? { ...c, status: "paid" as const } : c))
     );
     const member = contributions.find((c) => c.id === id)?.member;
-    showToast(`${member}'s contribution marked as paid`, "success");
+    showToast(`${member} ${t("markedAsPaid")}`, "success");
   };
 
   return (
@@ -64,7 +72,7 @@ export default function PendingContributions() {
       <div className="p-4 border-b border-border">
         <h3 className="text-base font-semibold flex items-center gap-2">
           <Clock className="w-4 h-4 text-secondary" />
-          Pending Contributions
+          {t("pendingContributions")}
         </h3>
       </div>
 
@@ -74,7 +82,7 @@ export default function PendingContributions() {
             <Users className="w-8 h-8 text-muted" />
           </div>
           <p className="text-sm text-muted">
-            All contributions are up to date
+            {t("allUpToDate")}
           </p>
         </div>
       ) : (
@@ -106,7 +114,7 @@ export default function PendingContributions() {
                   >
                     {c.member}
                   </div>
-                  <div className="text-xs text-muted">Due {c.dueDate}</div>
+                  <div className="text-xs text-muted">{t("due")} {c.dueDate}</div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -117,14 +125,14 @@ export default function PendingContributions() {
                   <div
                     className={`text-xs capitalize ${statusColors[c.status]}`}
                   >
-                    {c.status}
+                    {statusLabels[c.status]}
                   </div>
                 </div>
                 {c.status !== "paid" && (
                   <button
                     onClick={() => markPaid(c.id)}
                     className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-accent/10 text-accent hover:bg-accent/20 transition"
-                    title="Mark as paid"
+                    title={t("markAsPaid")}
                   >
                     <Check className="w-3.5 h-3.5" />
                   </button>
@@ -140,7 +148,7 @@ export default function PendingContributions() {
           href="/transactions"
           className="w-full text-center text-xs text-accent hover:underline flex items-center justify-center gap-1"
         >
-          View all contributions
+          {t("viewAllContributions")}
           <ArrowUpRight className="w-3 h-3" />
         </Link>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "@/i18n/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 import { showToast } from "@/components/shared/Toast";
 import {
@@ -15,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CreatePoolPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [name, setName] = useState("");
   const [contribution, setContribution] = useState("");
@@ -40,7 +42,7 @@ export default function CreatePoolPage() {
     if (!name || !contribution) return;
     setLoading(true);
     setTimeout(() => {
-      showToast(`Pool "${name}" created successfully!`, "success");
+      showToast(`"${name}" ${t("poolCreated")}`, "success");
       router.push("/pools");
     }, 1500);
   };
@@ -53,24 +55,24 @@ export default function CreatePoolPage() {
           className="inline-flex items-center gap-1.5 text-sm text-secondary hover:text-foreground transition mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to pools
+          {t("backToPools")}
         </Link>
 
-        <h1 className="text-2xl font-bold mb-1">Create a New Pool</h1>
+        <h1 className="text-2xl font-bold mb-1">{t("createNewPool")}</h1>
         <p className="text-sm text-secondary mb-6">
-          Set up your savings circle and invite members to join.
+          {t("createPoolDesc")}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="text-xs text-muted mb-1.5 block font-medium">
-              Pool Name
+              {t("poolName")}
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Community Savings"
+              placeholder={t("poolNamePlaceholder")}
               required
               className="w-full px-4 py-2.5 bg-highlight border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
             />
@@ -79,7 +81,7 @@ export default function CreatePoolPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-muted mb-1.5 block font-medium">
-                Contribution Amount
+                {t("contributionAmount")}
               </label>
               <div className="relative">
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
@@ -95,23 +97,23 @@ export default function CreatePoolPage() {
             </div>
             <div>
               <label className="text-xs text-muted mb-1.5 block font-medium">
-                Frequency
+                {t("frequency")}
               </label>
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value)}
                 className="w-full px-4 py-2.5 bg-highlight border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition appearance-none"
               >
-                <option value="weekly">Weekly</option>
-                <option value="bi-weekly">Bi-weekly</option>
-                <option value="monthly">Monthly</option>
+                <option value="weekly">{t("weekly")}</option>
+                <option value="bi-weekly">{t("biWeekly")}</option>
+                <option value="monthly">{t("monthly")}</option>
               </select>
             </div>
           </div>
 
           <div>
             <label className="text-xs text-muted mb-1.5 block font-medium">
-              Invite Members
+              {t("inviteMembers")}
             </label>
             <div className="flex gap-2">
               <div className="relative flex-1">
@@ -126,7 +128,7 @@ export default function CreatePoolPage() {
                       addMember();
                     }
                   }}
-                  placeholder="Name or email"
+                  placeholder={t("nameOrEmail")}
                   className="w-full pl-9 pr-4 py-2.5 bg-highlight border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
                 />
               </div>
@@ -158,39 +160,39 @@ export default function CreatePoolPage() {
               </div>
             )}
             <p className="text-[11px] text-muted mt-1.5">
-              You + {members.length} member{members.length !== 1 ? "s" : ""} ={" "}
-              {members.length + 1} rounds
+              You + {members.length} {t("membersLabel")} ={" "}
+              {members.length + 1} {t("rounds")}
             </p>
           </div>
 
           <div className="bg-surface rounded-xl border border-border p-4">
             <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
               <Calendar className="w-4 h-4 text-secondary" />
-              Pool Summary
+              {t("poolSummary")}
             </h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted">Pool name</span>
+                <span className="text-muted">{t("poolName")}</span>
                 <span className="font-medium">
                   {name || "—"}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted">Per-round contribution</span>
+                <span className="text-muted">{t("perRoundContribution")}</span>
                 <span className="font-medium">
                   {contribution ? `$${contribution}` : "—"}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted">Frequency</span>
+                <span className="text-muted">{t("frequency")}</span>
                 <span className="font-medium capitalize">{frequency}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted">Members</span>
+                <span className="text-muted">{t("members")}</span>
                 <span className="font-medium">{members.length + 1}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted">Payout per round</span>
+                <span className="text-muted">{t("payoutPerRound")}</span>
                 <span className="font-semibold text-accent">
                   {contribution
                     ? `$${(
@@ -208,14 +210,14 @@ export default function CreatePoolPage() {
               href="/pools"
               className="flex-1 py-2.5 text-center rounded-lg border border-border text-secondary text-sm font-medium hover:bg-surface-hover transition"
             >
-              Cancel
+              {t("cancel")}
             </Link>
             <button
               type="submit"
               disabled={!name || !contribution || loading}
               className="flex-1 py-2.5 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {loading ? "Creating..." : "Create Pool"}
+              {loading ? t("creating") : t("createPool")}
             </button>
           </div>
         </form>

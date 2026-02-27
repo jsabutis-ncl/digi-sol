@@ -3,8 +3,9 @@
 import AppShell from "@/components/layout/AppShell";
 import { showToast } from "@/components/shared/Toast";
 import Modal from "@/components/shared/Modal";
-import { Plus, Search, Copy, Trash2, Edit2 } from "lucide-react";
+import { Plus, Search, Copy, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 interface Contact {
   id: string;
@@ -22,6 +23,7 @@ const initialContacts: Contact[] = [
 ];
 
 export default function AddressBookPage() {
+  const { t } = useTranslation();
   const [contacts, setContacts] = useState(initialContacts);
   const [search, setSearch] = useState("");
   const [addOpen, setAddOpen] = useState(false);
@@ -54,12 +56,12 @@ export default function AddressBookPage() {
     setNewName("");
     setNewAddress("");
     setAddOpen(false);
-    showToast(`${newName.trim()} added to address book`, "success");
+    showToast(`${newName.trim()} ${t("addedToAddressBook")}`, "success");
   };
 
   const handleDelete = (id: string, name: string) => {
     setContacts(contacts.filter((c) => c.id !== id));
-    showToast(`${name} removed from address book`, "info");
+    showToast(`${name} ${t("removedFromAddressBook")}`, "info");
   };
 
   return (
@@ -67,9 +69,9 @@ export default function AddressBookPage() {
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold">Address Book</h1>
+            <h1 className="text-2xl font-bold">{t("addressBookTitle")}</h1>
             <p className="text-sm text-secondary mt-1">
-              {contacts.length} saved contacts
+              {contacts.length} {t("savedContacts")}
             </p>
           </div>
           <button
@@ -77,7 +79,7 @@ export default function AddressBookPage() {
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition"
           >
             <Plus className="w-4 h-4" />
-            Add Contact
+            {t("addContact")}
           </button>
         </div>
 
@@ -87,7 +89,7 @@ export default function AddressBookPage() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search contacts..."
+            placeholder={t("searchContacts")}
             className="w-full pl-9 pr-4 py-2.5 bg-surface border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
           />
         </div>
@@ -95,7 +97,7 @@ export default function AddressBookPage() {
         <div className="bg-surface rounded-xl border border-border overflow-hidden">
           {filtered.length === 0 ? (
             <div className="py-12 text-center text-sm text-muted">
-              {search ? `No contacts matching "${search}"` : "No contacts yet"}
+              {search ? `${t("noContactsMatching")} "${search}"` : t("noContactsYet")}
             </div>
           ) : (
             <div className="divide-y divide-border">
@@ -119,17 +121,17 @@ export default function AddressBookPage() {
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(c.address);
-                        showToast("Address copied", "success");
+                        showToast(t("addressCopiedShort"), "success");
                       }}
                       className="p-2 rounded-lg hover:bg-highlight text-muted hover:text-foreground transition"
-                      title="Copy address"
+                      title={t("copyAddress")}
                     >
                       <Copy className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleDelete(c.id, c.name)}
                       className="p-2 rounded-lg hover:bg-aa-red/10 text-muted hover:text-aa-red transition"
-                      title="Delete"
+                      title={t("delete")}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -143,22 +145,22 @@ export default function AddressBookPage() {
         <Modal
           open={addOpen}
           onClose={() => setAddOpen(false)}
-          title="Add Contact"
+          title={t("addContact")}
         >
           <div className="space-y-4">
             <div>
-              <label className="text-xs text-muted mb-1.5 block">Name</label>
+              <label className="text-xs text-muted mb-1.5 block">{t("name")}</label>
               <input
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                placeholder="Contact name"
+                placeholder={t("contactName")}
                 className="w-full px-4 py-2.5 bg-highlight border border-border rounded-lg text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition"
               />
             </div>
             <div>
               <label className="text-xs text-muted mb-1.5 block">
-                Address
+                {t("address")}
               </label>
               <input
                 type="text"
@@ -173,14 +175,14 @@ export default function AddressBookPage() {
                 onClick={() => setAddOpen(false)}
                 className="flex-1 py-2.5 rounded-lg border border-border text-secondary text-sm font-medium hover:bg-surface-hover transition"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 onClick={handleAdd}
                 disabled={!newName.trim() || !newAddress.trim()}
                 className="flex-1 py-2.5 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40"
               >
-                Save Contact
+                {t("saveContact")}
               </button>
             </div>
           </div>

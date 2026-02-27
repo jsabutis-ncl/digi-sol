@@ -2,36 +2,45 @@
 
 import { PlusCircle, Users, ArrowRightLeft, Landmark } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "@/i18n/LanguageContext";
+import type { TranslationKey } from "@/i18n/translations";
 
-const actions = [
+const actions: {
+  icon: typeof PlusCircle;
+  labelKey: TranslationKey;
+  descKey: TranslationKey;
+  href: string;
+  color: string;
+  bg: string;
+}[] = [
   {
     icon: PlusCircle,
-    label: "Create a Pool",
-    description: "Start a new savings circle with friends or community members",
+    labelKey: "createAPool",
+    descKey: "createAPoolDesc",
     href: "/pools/create",
     color: "text-accent",
     bg: "bg-accent/10",
   },
   {
     icon: Users,
-    label: "Join a Pool",
-    description: "Browse open pools or enter an invite code to join",
+    labelKey: "joinAPool",
+    descKey: "joinAPoolDesc",
     href: "/pools/join",
     color: "text-aa-blue",
     bg: "bg-aa-blue/10",
   },
   {
     icon: ArrowRightLeft,
-    label: "Swap Turn",
-    description: "Negotiate with another member to swap your payout position",
+    labelKey: "swapTurn",
+    descKey: "swapTurnDesc",
     href: "/pools/swap",
     color: "text-aa-amber",
     bg: "bg-aa-amber/10",
   },
   {
     icon: Landmark,
-    label: "Connect Bank",
-    description: "Link your bank account for automatic contributions",
+    labelKey: "connectBank",
+    descKey: "connectBankDesc",
     href: "/settings",
     color: "text-aa-purple",
     bg: "bg-aa-purple/10",
@@ -39,13 +48,15 @@ const actions = [
 ];
 
 export default function QuickActions() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h3 className="text-base font-semibold mb-4">Quick Actions</h3>
+      <h3 className="text-base font-semibold mb-4">{t("quickActions")}</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {actions.map((action) => (
           <Link
-            key={action.label}
+            key={action.labelKey}
             href={action.href}
             className="flex items-start gap-3 p-4 bg-surface rounded-xl border border-border hover:bg-surface-hover transition text-left group"
           >
@@ -56,10 +67,10 @@ export default function QuickActions() {
             </div>
             <div>
               <div className="text-sm font-semibold group-hover:text-accent transition">
-                {action.label}
+                {t(action.labelKey)}
               </div>
               <div className="text-xs text-secondary mt-0.5 leading-relaxed">
-                {action.description}
+                {t(action.descKey)}
               </div>
             </div>
           </Link>
