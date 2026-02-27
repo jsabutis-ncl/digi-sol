@@ -29,8 +29,8 @@ const stats: {
     labelKey: "totalSaved",
     value: "$12,500",
     icon: TrendingUp,
-    color: "text-aa-amber",
-    bg: "bg-aa-amber/10",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     labelKey: "trustScore",

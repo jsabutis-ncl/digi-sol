@@ -13,7 +13,7 @@
   --accent-green-dark: #0e6b38;
   --accent-blue: #7da8ff;
   --accent-purple: #b49cfa;
-  --accent-orange: #f59e0b;
+
   --accent-red: #f98c8c;
   --border-color: #303033;
   --sidebar-width: 230px;
@@ -34,7 +34,7 @@
   --color-aa-blue: var(--accent-blue);
   --color-aa-purple: var(--accent-purple);
   --color-aa-red: var(--accent-red);
-  --color-aa-amber: #fbbf24;
+
   --color-aa-pink: #f9a8d4;
   --color-aa-cyan: #22d3ee;
   --font-sans: var(--font-geist-sans);

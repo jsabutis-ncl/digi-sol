@@ -54,7 +54,7 @@ const pools = [
 const statusColors = {
   active: "bg-accent/20 text-accent",
   completed: "bg-aa-blue/20 text-aa-blue",
-  pending: "bg-aa-amber/20 text-aa-amber",
+  pending: "bg-accent/20 text-accent",
 };
 
 export default function PoolsPage() {

@@ -43,7 +43,7 @@ const initialContributions: Contribution[] = [
 ];
 
 const statusColors = {
-  pending: "text-aa-amber",
+  pending: "text-accent",
   overdue: "text-aa-red",
   paid: "text-accent",
 };

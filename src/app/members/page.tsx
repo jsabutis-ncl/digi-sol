@@ -124,7 +124,7 @@ export default function MembersPage() {
                           m.trustScore >= 90
                             ? "text-accent"
                             : m.trustScore >= 70
-                            ? "text-aa-amber"
+                            ? "text-accent"
                             : "text-aa-red"
                         }`}
                       />

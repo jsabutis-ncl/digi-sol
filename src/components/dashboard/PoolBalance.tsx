@@ -69,7 +69,7 @@ export default function PoolBalance() {
               setReason("");
               setRequestOpen(true);
             }}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-aa-amber text-aa-amber font-medium text-sm hover:bg-aa-amber/10 transition"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-accent text-accent font-medium text-sm hover:bg-accent/10 transition"
           >
             <HandCoins className="w-4 h-4" />
             {t("requestMoney")}
@@ -185,7 +185,7 @@ export default function PoolBalance() {
             <button
               onClick={handleRequest}
               disabled={!amount || parseFloat(amount) <= 0 || !reason.trim() || loading}
-              className="flex-1 py-2.5 rounded-lg bg-aa-amber text-background text-sm font-semibold hover:bg-aa-amber/90 transition disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-1 py-2.5 rounded-lg bg-accent text-background text-sm font-semibold hover:bg-accent/90 transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {loading ? t("processing") : t("submitRequest")}
             </button>

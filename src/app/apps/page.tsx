@@ -44,8 +44,8 @@ const apps: AppItem[] = [
     nameKey: "schedulePlanner",
     descKey: "schedulePlannerDesc",
     icon: CalendarCheck,
-    color: "text-aa-amber",
-    bg: "bg-aa-amber/10",
+    color: "text-accent",
+    bg: "bg-accent/10",
     status: "available",
   },
   {

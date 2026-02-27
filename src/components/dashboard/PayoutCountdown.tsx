@@ -152,7 +152,7 @@ export default function PayoutCountdown({
                 </div>
               )}
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-aa-amber">
+            <div className="flex items-center gap-1.5 text-xs text-accent">
               <Sparkles className="w-3.5 h-3.5" />
               <span className="font-medium">Alice M.</span>
             </div>

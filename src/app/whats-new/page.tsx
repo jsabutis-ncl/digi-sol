@@ -46,8 +46,8 @@ const updates: UpdateItem[] = [
     descKey: "turnSwappingDesc",
     tagKey: "enhancement",
     icon: ArrowRightLeft,
-    color: "text-aa-amber",
-    bg: "bg-aa-amber/10",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     date: "Jan 2026",

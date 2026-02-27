@@ -29,7 +29,7 @@ export default function PayoutQueue() {
     <div className="bg-surface rounded-xl border border-border">
       <div className="p-4 border-b border-border">
         <h3 className="text-base font-semibold flex items-center gap-2">
-          <Crown className="w-4 h-4 text-aa-amber" />
+          <Crown className="w-4 h-4 text-accent" />
           {t("payoutQueue")}
         </h3>
       </div>
@@ -39,7 +39,7 @@ export default function PayoutQueue() {
           <div
             key={m.round}
             className={`flex items-center justify-between px-4 py-3 transition group ${
-              m.status === "next" ? "bg-aa-amber/[0.04]" : "hover:bg-surface-hover"
+              m.status === "next" ? "bg-accent/[0.04]" : "hover:bg-surface-hover"
             }`}
           >
             <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export default function PayoutQueue() {
                   m.status === "paid"
                     ? "bg-accent/20 text-accent"
                     : m.status === "next"
-                    ? "bg-aa-amber/20 text-aa-amber ring-1 ring-aa-amber/30"
+                    ? "bg-accent/20 text-accent ring-1 ring-accent/30"
                     : "bg-highlight text-muted"
                 }`}
               >
@@ -72,7 +72,7 @@ export default function PayoutQueue() {
                     {m.nameKey ? t(m.nameKey) : m.name}
                   </span>
                   {m.status === "next" && (
-                    <span className="flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-bold bg-aa-amber/15 text-aa-amber rounded">
+                    <span className="flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-bold bg-accent/15 text-accent rounded">
                       <Sparkles className="w-2.5 h-2.5" />
                       {t("upNext")}
                     </span>
@@ -95,7 +95,7 @@ export default function PayoutQueue() {
                 <div
                   className={`text-sm font-semibold ${
                     m.status === "next"
-                      ? "text-aa-amber"
+                      ? "text-accent"
                       : m.status === "paid"
                       ? "text-muted"
                       : ""

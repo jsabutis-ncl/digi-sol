@@ -16,7 +16,7 @@ export default function PendingRequests() {
       <div className="bg-surface rounded-xl border border-border">
         <div className="p-4 border-b border-border">
           <h3 className="text-base font-semibold flex items-center gap-2">
-            <HandCoins className="w-4 h-4 text-aa-amber" />
+            <HandCoins className="w-4 h-4 text-accent" />
             {t("pendingRequests")}
           </h3>
         </div>
@@ -36,7 +36,7 @@ export default function PendingRequests() {
     <div className="bg-surface rounded-xl border border-border">
       <div className="p-4 border-b border-border">
         <h3 className="text-base font-semibold flex items-center gap-2">
-          <HandCoins className="w-4 h-4 text-aa-amber" />
+          <HandCoins className="w-4 h-4 text-accent" />
           {t("pendingRequests")}
         </h3>
       </div>
@@ -61,7 +61,7 @@ export default function PendingRequests() {
                       ? "bg-accent/20 text-accent"
                       : req.status === "denied"
                       ? "bg-aa-red/20 text-aa-red"
-                      : "bg-aa-amber/20 text-aa-amber"
+                      : "bg-accent/20 text-accent"
                   }`}
                 >
                   {req.status === "approved" ? (
@@ -77,7 +77,7 @@ export default function PendingRequests() {
                     <span className="text-sm font-medium truncate">
                       {isOwnRequest(req.requesterName) ? t("youRequested") : req.requesterName}
                     </span>
-                    <span className="text-sm font-semibold text-aa-amber">
+                    <span className="text-sm font-semibold text-accent">
                       ${req.amount.toLocaleString()}
                     </span>
                     {req.status !== "pending" && (

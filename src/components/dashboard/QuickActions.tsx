@@ -34,8 +34,8 @@ const actions: {
     labelKey: "swapTurn",
     descKey: "swapTurnDesc",
     href: "/pools/swap",
-    color: "text-aa-amber",
-    bg: "bg-aa-amber/10",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     icon: Landmark,

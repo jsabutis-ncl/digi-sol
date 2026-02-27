@@ -26,7 +26,7 @@ export default function EarningsPage() {
   const earningsSummary = [
     { label: t("totalEarned"), value: "$5,800", icon: DollarSign, color: "text-accent", bg: "bg-accent/10" },
     { label: t("totalContributed"), value: "$3,250", icon: ArrowUpRight, color: "text-aa-blue", bg: "bg-aa-blue/10" },
-    { label: t("netGain"), value: "$2,550", icon: TrendingUp, color: "text-aa-amber", bg: "bg-aa-amber/10" },
+    { label: t("netGain"), value: "$2,550", icon: TrendingUp, color: "text-accent", bg: "bg-accent/10" },
     { label: t("activePools"), value: "3", icon: PiggyBank, color: "text-aa-purple", bg: "bg-aa-purple/10" },
   ];
   return (
