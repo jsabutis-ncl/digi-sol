@@ -1,6 +1,6 @@
 "use client";
 
-import { ShieldCheck, Zap, ArrowRight } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "@/i18n/LanguageContext";
 
@@ -33,20 +33,6 @@ export default function NewFeatures() {
               {t("setUpGuarantors")}
               <ArrowRight className="w-3 h-3" />
             </Link>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-surface rounded-xl border border-border p-4">
-        <div className="flex items-start gap-3">
-          <div className="w-12 h-12 rounded-xl bg-aa-purple/10 border border-aa-purple/20 flex items-center justify-center shrink-0">
-            <Zap className="w-6 h-6 text-aa-purple" />
-          </div>
-          <div className="flex-1">
-            <h4 className="text-sm font-semibold mb-1">{t("instantPayouts")}</h4>
-            <p className="text-xs text-secondary leading-relaxed">
-              {t("instantPayoutsDesc")}
-            </p>
           </div>
         </div>
       </div>
