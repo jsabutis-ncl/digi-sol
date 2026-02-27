@@ -52,6 +52,13 @@ const translations = {
     isReceiving: "is receiving",
     elapsed: "elapsed",
 
+    // Payout Frequency
+    payoutFrequency: "Payout Frequency",
+    frequencyWeekly: "Weekly",
+    frequencyBiweekly: "Bi-weekly",
+    frequencyMonthly: "Monthly",
+    frequencySeniority: "By Seniority",
+
     // Community Stats
     communityOverview: "Community Overview",
     activePools: "Active Pools",
@@ -406,6 +413,13 @@ const translations = {
     payoutTime: "Ler Peyman!",
     isReceiving: "pe resevwar",
     elapsed: "finn pase",
+
+    // Payout Frequency
+    payoutFrequency: "Frekans Peyman",
+    frequencyWeekly: "Tou le semenn",
+    frequencyBiweekly: "Tou le 2 semenn",
+    frequencyMonthly: "Tou le mwa",
+    frequencySeniority: "Par Ansyennte",
 
     // Community Stats
     communityOverview: "Apersi Kominoté",

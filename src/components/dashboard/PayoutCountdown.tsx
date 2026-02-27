@@ -1,10 +1,20 @@
 "use client";
 
-import { Timer, Sparkles } from "lucide-react";
-import { useEffect, useState, useCallback } from "react";
+import { Timer, Sparkles, ChevronDown } from "lucide-react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useTranslation } from "@/i18n/LanguageContext";
+import type { TranslationKey } from "@/i18n/translations";
 
 const PAYOUT_DATE = new Date("2026-03-15T12:00:00");
+
+type PayoutFrequency = "weekly" | "biweekly" | "monthly" | "seniority";
+
+const frequencyOptions: { value: PayoutFrequency; labelKey: TranslationKey }[] = [
+  { value: "weekly", labelKey: "frequencyWeekly" },
+  { value: "biweekly", labelKey: "frequencyBiweekly" },
+  { value: "monthly", labelKey: "frequencyMonthly" },
+  { value: "seniority", labelKey: "frequencySeniority" },
+];
 
 interface TimeLeft {
   days: number;
@@ -51,6 +61,9 @@ export default function PayoutCountdown({
 }) {
   const [time, setTime] = useState<TimeLeft | null>(null);
   const [hasFired, setHasFired] = useState(false);
+  const [frequency, setFrequency] = useState<PayoutFrequency>("monthly");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   const stableCallback = useCallback(() => {
@@ -70,9 +83,21 @@ export default function PayoutCountdown({
     return () => clearInterval(id);
   }, [hasFired, stableCallback]);
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const totalDuration = PAYOUT_DATE.getTime() - new Date("2026-02-15T12:00:00").getTime();
   const elapsed = totalDuration - (time?.total ?? totalDuration);
   const pct = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+
+  const selectedLabel = frequencyOptions.find((o) => o.value === frequency)!.labelKey;
 
   return (
     <div className="bg-surface rounded-xl border border-border overflow-hidden">
@@ -97,9 +122,40 @@ export default function PayoutCountdown({
             <Timer className="w-4 h-4 text-accent" />
             {t("nextPayout")}
           </h3>
-          <div className="flex items-center gap-1.5 text-xs text-aa-amber">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span className="font-medium">Alice M.</span>
+          <div className="flex items-center gap-3">
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-highlight border border-border text-xs text-secondary hover:text-foreground transition-colors cursor-pointer"
+              >
+                {t(selectedLabel)}
+                <ChevronDown className={`w-3 h-3 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+              </button>
+              {dropdownOpen && (
+                <div className="absolute right-0 top-full mt-1 w-40 bg-surface border border-border rounded-lg shadow-lg z-20 overflow-hidden">
+                  {frequencyOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        setFrequency(opt.value);
+                        setDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-xs transition-colors cursor-pointer ${
+                        frequency === opt.value
+                          ? "bg-accent/10 text-accent font-medium"
+                          : "text-secondary hover:bg-surface-hover hover:text-foreground"
+                      }`}
+                    >
+                      {t(opt.labelKey)}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-aa-amber">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span className="font-medium">Alice M.</span>
+            </div>
           </div>
         </div>
 
